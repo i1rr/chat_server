@@ -29,14 +29,14 @@ fn main() {
                         println!("{}: {:?}", addr, msg);
                         tx.send(msg).expect("Failed to send message to rx");
                     },
-                    Err(ref err) if err.kind() == ErrorKind.WouldBlock => (),
+                    Err(ref err) if err.kind() == ErrorKind::WouldBlock => (),
                     Err(_) => {
                         println!("Closing connection with {}", addr);
                         break;
                     }
                 }
                 sleep();
-            })
+            });
         }
 
         if let Ok(msg) = rx.try_recv() {
